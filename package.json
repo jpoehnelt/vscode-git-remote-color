@@ -2,7 +2,7 @@
   "name": "vscode-git-remote-color",
   "displayName": "Git Remote Color",
   "description": "Automatically colors your VS Code workspace based on the git remote URL. Every repo gets its own unique, consistent color.",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "icon": "icon.png",
   "publisher": "jpoehnelt",
   "license": "Apache-2.0",
@@ -48,7 +48,6 @@
     "configuration": {
       "title": "Git Remote Color",
       "properties": {
-
         "gitRemoteColor.affectStatusBar": {
           "type": "boolean",
           "default": true,
