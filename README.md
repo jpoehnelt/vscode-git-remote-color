@@ -7,12 +7,14 @@
 
 Inspired by [Peacock](https://marketplace.visualstudio.com/items?itemName=johnpapa.vscode-peacock), but fully automatic using a deterministic hash of your git remote.
 
+Read more about the motivation in the [blog post](https://justin.poehnelt.com/posts/vscode-git-remote-color/).
+
 ## How It Works
 
 1. On startup, the extension reads the git remote URL (default: `origin`)
 2. The URL is normalized and hashed (FNV-1a) to produce a number
 3. The number maps to a hue on the HSL color wheel
-4. The resulting color is applied to your title bar, activity bar, and status bar
+4. The resulting color is applied to your **status bar**
 
 The same remote always produces the same color, so your workspace looks consistent across sessions and machines.
 
@@ -21,34 +23,33 @@ The same remote always produces the same color, so your workspace looks consiste
 - **Zero configuration** — colors are applied automatically on workspace open
 - **Deterministic** — same remote = same color, always
 - **URL normalization** — `git@github.com:foo/bar.git` and `https://github.com/foo/bar.git` produce the same color
-- **Per-element control** — toggle status bar, adjust element lightness/darkness
+- **Element control** — toggle status bar color adjustment
 - **Adjustable palette** — customize saturation and lightness
 - **Manual override** — set a specific hex color to bypass auto-detection
 - **Status bar indicator** — shows the current color hex at a glance
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
-| `Git Remote Color: Refresh Color from Git Remote` | Re-detect the remote and apply color |
-| `Git Remote Color: Reset Workspace Colors` | Remove all managed color customizations |
-| `Git Remote Color: Show Current Color` | Display the current color and remote info |
+| Command                                           | Description                               |
+| ------------------------------------------------- | ----------------------------------------- |
+| `Git Remote Color: Refresh Color from Git Remote` | Re-detect the remote and apply color      |
+| `Git Remote Color: Reset Workspace Colors`        | Remove all managed color customizations   |
+| `Git Remote Color: Show Current Color`            | Display the current color and remote info |
 
 ## Settings
 
-| Setting | Default |
-|---------|---------|
-| `gitRemoteColor.affectStatusBar` | `true` |
-| `gitRemoteColor.saturation` | `50` |
-| `gitRemoteColor.lightness` | `40` |
-| `gitRemoteColor.colorOverride` | `""` |
-| `gitRemoteColor.remoteName` | `"origin"` |
-| `gitRemoteColor.elementAdjustments` | *(see below)* |
+| Setting                             | Default       |
+| ----------------------------------- | ------------- |
+| `gitRemoteColor.saturation`         | `50`          |
+| `gitRemoteColor.lightness`          | `40`          |
+| `gitRemoteColor.colorOverride`      | `""`          |
+| `gitRemoteColor.remoteName`         | `"origin"`    |
+| `gitRemoteColor.elementAdjustments` | _(see below)_ |
 
 Default `elementAdjustments`:
 
 ```json
-{ "titleBar": "none", "activityBar": "lighten", "statusBar": "none" }
+{ "statusBar": "none" }
 ```
 
 ## License

@@ -6,8 +6,6 @@ import * as vscode from 'vscode';
 import { adjustColor, getContrastForeground } from './color';
 
 export interface ElementAdjustments {
-  titleBar: 'none' | 'lighten' | 'darken';
-  activityBar: 'none' | 'lighten' | 'darken';
   statusBar: 'none' | 'lighten' | 'darken';
 }
 
@@ -25,17 +23,7 @@ function applyAdjustment(hex: string, adjustment: 'none' | 'lighten' | 'darken')
 }
 
 // All the color keys we manage, so we can cleanly remove them
-const MANAGED_KEYS = [
-  'titleBar.activeBackground',
-  'titleBar.activeForeground',
-  'titleBar.inactiveBackground',
-  'titleBar.inactiveForeground',
-  'activityBar.background',
-  'activityBar.foreground',
-  'statusBar.background',
-  'statusBar.foreground',
-  'sash.hoverBorder',
-];
+const MANAGED_KEYS = ['statusBar.background', 'statusBar.foreground', 'sash.hoverBorder'];
 
 /**
  * Apply color customizations to the workspace settings.
@@ -43,12 +31,12 @@ const MANAGED_KEYS = [
 export async function applyColors(baseColor: string): Promise<void> {
   const config = vscode.workspace.getConfiguration('gitRemoteColor');
 
-  const affectStatusBar = config.get<boolean>('affectStatusBar', true);
-  const adjustments = config.get<ElementAdjustments>('elementAdjustments', {
-    titleBar: 'none',
-    activityBar: 'lighten',
+  const defaultAdjustments: ElementAdjustments = {
     statusBar: 'none',
-  });
+  };
+
+  const userAdjustments = config.get<ElementAdjustments>('elementAdjustments');
+  const adjustments = { ...defaultAdjustments, ...userAdjustments };
 
   const wsConfig = vscode.workspace.getConfiguration('workbench');
   const existing = wsConfig.get<Record<string, string>>('colorCustomizations') || {};
@@ -59,25 +47,10 @@ export async function applyColors(baseColor: string): Promise<void> {
     delete colors[key];
   }
 
-  const titleBarBg = applyAdjustment(baseColor, adjustments.titleBar);
-  const titleBarFg = getContrastForeground(titleBarBg);
-  const inactiveBg = adjustColor(titleBarBg, -10);
-  colors['titleBar.activeBackground'] = titleBarBg;
-  colors['titleBar.activeForeground'] = titleBarFg;
-  colors['titleBar.inactiveBackground'] = inactiveBg;
-  colors['titleBar.inactiveForeground'] = titleBarFg;
-
-  const activityBarBg = applyAdjustment(baseColor, adjustments.activityBar);
-  const activityBarFg = getContrastForeground(activityBarBg);
-  colors['activityBar.background'] = activityBarBg;
-  colors['activityBar.foreground'] = activityBarFg;
-
-  if (affectStatusBar) {
-    const bg = applyAdjustment(baseColor, adjustments.statusBar);
-    const fg = getContrastForeground(bg);
-    colors['statusBar.background'] = bg;
-    colors['statusBar.foreground'] = fg;
-  }
+  const bg = applyAdjustment(baseColor, adjustments.statusBar);
+  const fg = getContrastForeground(bg);
+  colors['statusBar.background'] = bg;
+  colors['statusBar.foreground'] = fg;
 
   // Sash hover border uses the base color for a subtle accent
   colors['sash.hoverBorder'] = baseColor;

@@ -48,49 +48,9 @@
     "configuration": {
       "title": "Git Remote Color",
       "properties": {
-        "gitRemoteColor.affectStatusBar": {
-          "type": "boolean",
-          "default": true,
-          "description": "Whether to color the status bar."
-        },
-        "gitRemoteColor.saturation": {
-          "type": "number",
-          "default": 50,
-          "minimum": 10,
-          "maximum": 100,
-          "description": "Color saturation percentage (10-100)."
-        },
-        "gitRemoteColor.lightness": {
-          "type": "number",
-          "default": 40,
-          "minimum": 15,
-          "maximum": 60,
-          "description": "Color lightness percentage (15-60)."
-        },
-        "gitRemoteColor.colorOverride": {
-          "type": "string",
-          "default": "",
-          "description": "Manual hex color override (e.g. #ff6347). When set, bypasses the git remote hash."
-        },
         "gitRemoteColor.elementAdjustments": {
           "type": "object",
           "properties": {
-            "titleBar": {
-              "type": "string",
-              "enum": [
-                "none",
-                "lighten",
-                "darken"
-              ]
-            },
-            "activityBar": {
-              "type": "string",
-              "enum": [
-                "none",
-                "lighten",
-                "darken"
-              ]
-            },
             "statusBar": {
               "type": "string",
               "enum": [
@@ -101,8 +61,6 @@
             }
           },
           "default": {
-            "titleBar": "none",
-            "activityBar": "lighten",
             "statusBar": "none"
           },
           "description": "Per-element lighten/darken adjustment for visual differentiation."
