@@ -42,8 +42,8 @@ const MANAGED_KEYS = [
  */
 export async function applyColors(baseColor: string): Promise<void> {
   const config = vscode.workspace.getConfiguration('gitRemoteColor');
-  const affectTitleBar = config.get<boolean>('affectTitleBar', true);
-  const affectActivityBar = config.get<boolean>('affectActivityBar', true);
+  const affectTitleBar = config.get<boolean>('affectTitleBar', false);
+  const affectActivityBar = config.get<boolean>('affectActivityBar', false);
   const affectStatusBar = config.get<boolean>('affectStatusBar', true);
   const adjustments = config.get<ElementAdjustments>('elementAdjustments', {
     titleBar: 'none',
