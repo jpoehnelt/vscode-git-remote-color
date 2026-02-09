@@ -1,0 +1,134 @@
+{
+  "name": "vscode-git-remote-color",
+  "displayName": "Git Remote Color",
+  "description": "Automatically colors your VS Code workspace based on the git remote URL. Every repo gets its own unique, consistent color.",
+  "version": "0.1.0",
+  "publisher": "jpoehnelt",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jpoehnelt/vscode-git-remote-color"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "Theme",
+    "Colors",
+    "Git",
+    "Workspace",
+    "Peacock"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "gitRemoteColor.refresh",
+        "title": "Refresh Color from Git Remote",
+        "category": "Git Remote Color"
+      },
+      {
+        "command": "gitRemoteColor.reset",
+        "title": "Reset Workspace Colors",
+        "category": "Git Remote Color"
+      },
+      {
+        "command": "gitRemoteColor.showColor",
+        "title": "Show Current Color",
+        "category": "Git Remote Color"
+      }
+    ],
+    "configuration": {
+      "title": "Git Remote Color",
+      "properties": {
+        "gitRemoteColor.affectTitleBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to color the title bar."
+        },
+        "gitRemoteColor.affectActivityBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to color the activity bar."
+        },
+        "gitRemoteColor.affectStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to color the status bar."
+        },
+        "gitRemoteColor.saturation": {
+          "type": "number",
+          "default": 50,
+          "minimum": 10,
+          "maximum": 100,
+          "description": "Color saturation percentage (10-100)."
+        },
+        "gitRemoteColor.lightness": {
+          "type": "number",
+          "default": 40,
+          "minimum": 15,
+          "maximum": 60,
+          "description": "Color lightness percentage (15-60)."
+        },
+        "gitRemoteColor.colorOverride": {
+          "type": "string",
+          "default": "",
+          "description": "Manual hex color override (e.g. #ff6347). When set, bypasses the git remote hash."
+        },
+        "gitRemoteColor.elementAdjustments": {
+          "type": "object",
+          "properties": {
+            "titleBar": {
+              "type": "string",
+              "enum": ["none", "lighten", "darken"]
+            },
+            "activityBar": {
+              "type": "string",
+              "enum": ["none", "lighten", "darken"]
+            },
+            "statusBar": {
+              "type": "string",
+              "enum": ["none", "lighten", "darken"]
+            }
+          },
+          "default": {
+            "titleBar": "none",
+            "activityBar": "lighten",
+            "statusBar": "none"
+          },
+          "description": "Per-element lighten/darken adjustment for visual differentiation."
+        },
+        "gitRemoteColor.remoteName": {
+          "type": "string",
+          "default": "origin",
+          "description": "Git remote name to use for color hashing."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "test:unit": "mocha --ui tdd 'out/test/unit/**/*.test.js'",
+    "ci:version": "changeset version",
+    "ci:publish": "npx @vscode/vsce publish --allow-missing-repository && npx ovsx publish --allow-missing-repository || true"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-electron": "^2.3.8",
+    "mocha": "^10.2.0",
+    "typescript": "^5.3.3"
+  }
+}

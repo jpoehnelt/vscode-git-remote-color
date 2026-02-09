@@ -1,0 +1,35 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: "npm"
+      - run: npm ci
+      - run: npm run compile
+      - run: npm run test:unit
+      - run: npx @vscode/vsce package --allow-missing-repository
+      - uses: changesets/action@v1
+        id: changesets
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        with:
+          title: "chore: release"
+          commit: "chore: release"
+          publish: npm run ci:publish
+          version: npm run ci:version
