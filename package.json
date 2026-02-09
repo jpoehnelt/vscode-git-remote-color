@@ -48,16 +48,7 @@
     "configuration": {
       "title": "Git Remote Color",
       "properties": {
-        "gitRemoteColor.affectTitleBar": {
-          "type": "boolean",
-          "default": false,
-          "description": "Whether to color the title bar."
-        },
-        "gitRemoteColor.affectActivityBar": {
-          "type": "boolean",
-          "default": false,
-          "description": "Whether to color the activity bar."
-        },
+
         "gitRemoteColor.affectStatusBar": {
           "type": "boolean",
           "default": true,

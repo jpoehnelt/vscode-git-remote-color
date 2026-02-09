@@ -42,8 +42,7 @@ const MANAGED_KEYS = [
  */
 export async function applyColors(baseColor: string): Promise<void> {
   const config = vscode.workspace.getConfiguration('gitRemoteColor');
-  const affectTitleBar = config.get<boolean>('affectTitleBar', false);
-  const affectActivityBar = config.get<boolean>('affectActivityBar', false);
+
   const affectStatusBar = config.get<boolean>('affectStatusBar', true);
   const adjustments = config.get<ElementAdjustments>('elementAdjustments', {
     titleBar: 'none',
@@ -60,22 +59,18 @@ export async function applyColors(baseColor: string): Promise<void> {
     delete colors[key];
   }
 
-  if (affectTitleBar) {
-    const bg = applyAdjustment(baseColor, adjustments.titleBar);
-    const fg = getContrastForeground(bg);
-    const inactiveBg = adjustColor(bg, -10);
-    colors['titleBar.activeBackground'] = bg;
-    colors['titleBar.activeForeground'] = fg;
-    colors['titleBar.inactiveBackground'] = inactiveBg;
-    colors['titleBar.inactiveForeground'] = fg;
-  }
+  const titleBarBg = applyAdjustment(baseColor, adjustments.titleBar);
+  const titleBarFg = getContrastForeground(titleBarBg);
+  const inactiveBg = adjustColor(titleBarBg, -10);
+  colors['titleBar.activeBackground'] = titleBarBg;
+  colors['titleBar.activeForeground'] = titleBarFg;
+  colors['titleBar.inactiveBackground'] = inactiveBg;
+  colors['titleBar.inactiveForeground'] = titleBarFg;
 
-  if (affectActivityBar) {
-    const bg = applyAdjustment(baseColor, adjustments.activityBar);
-    const fg = getContrastForeground(bg);
-    colors['activityBar.background'] = bg;
-    colors['activityBar.foreground'] = fg;
-  }
+  const activityBarBg = applyAdjustment(baseColor, adjustments.activityBar);
+  const activityBarFg = getContrastForeground(activityBarBg);
+  colors['activityBar.background'] = activityBarBg;
+  colors['activityBar.foreground'] = activityBarFg;
 
   if (affectStatusBar) {
     const bg = applyAdjustment(baseColor, adjustments.statusBar);
