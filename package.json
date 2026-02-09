@@ -134,7 +134,7 @@
     "test": "npm run test:unit",
     "test:unit": "mocha --ui tdd 'out/test/unit/**/*.test.js'",
     "ci:version": "changeset version",
-    "ci:publish": "npx @vscode/vsce publish --allow-missing-repository && npx ovsx publish --allow-missing-repository || true"
+    "ci:publish": "npx @vscode/vsce publish --allow-missing-repository && npx ovsx publish || true"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.14",
