@@ -12,7 +12,7 @@ Inspired by [Peacock](https://marketplace.visualstudio.com/items?itemName=johnpa
 1. On startup, the extension reads the git remote URL (default: `origin`)
 2. The URL is normalized and hashed (FNV-1a) to produce a number
 3. The number maps to a hue on the HSL color wheel
-4. The resulting color is applied to your title bar, activity bar, and status bar
+4. The resulting color is applied to your status bar (title bar and activity bar can be enabled in settings)
 
 The same remote always produces the same color, so your workspace looks consistent across sessions and machines.
 
@@ -38,8 +38,8 @@ The same remote always produces the same color, so your workspace looks consiste
 
 | Setting | Default |
 |---------|---------|
-| `gitRemoteColor.affectTitleBar` | `true` |
-| `gitRemoteColor.affectActivityBar` | `true` |
+| `gitRemoteColor.affectTitleBar` | `false` |
+| `gitRemoteColor.affectActivityBar` | `false` |
 | `gitRemoteColor.affectStatusBar` | `true` |
 | `gitRemoteColor.saturation` | `50` |
 | `gitRemoteColor.lightness` | `40` |

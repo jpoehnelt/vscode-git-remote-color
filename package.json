@@ -50,12 +50,12 @@
       "properties": {
         "gitRemoteColor.affectTitleBar": {
           "type": "boolean",
-          "default": true,
+          "default": false,
           "description": "Whether to color the title bar."
         },
         "gitRemoteColor.affectActivityBar": {
           "type": "boolean",
-          "default": true,
+          "default": false,
           "description": "Whether to color the activity bar."
         },
         "gitRemoteColor.affectStatusBar": {
