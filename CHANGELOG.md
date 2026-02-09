@@ -1,5 +1,11 @@
 # vscode-git-remote-color
 
+## 0.1.6
+
+### Patch Changes
+
+- 9a69314: Fix color contrast using WCAG contrast ratio and default to status bar only
+
 ## 0.1.5
 
 ### Patch Changes
