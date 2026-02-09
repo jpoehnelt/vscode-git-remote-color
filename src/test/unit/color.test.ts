@@ -3,15 +3,14 @@
  * Run with: npx mocha out/test/unit/color.test.js
  */
 
-import * as assert from 'assert';
+import * as assert from 'node:assert';
 import {
+  adjustColor,
+  getContrastForeground,
   hashString,
   hashToHex,
-  hslToHex,
   hexToRgb,
-  relativeLuminance,
-  getContrastForeground,
-  adjustColor,
+  hslToHex,
   normalizeRemoteUrl,
 } from '../../color';
 
@@ -32,7 +31,7 @@ suite('Color Utilities', () => {
     test('returns a positive 32-bit integer', () => {
       const h = hashString('test');
       assert.ok(h >= 0);
-      assert.ok(h <= 0xFFFFFFFF);
+      assert.ok(h <= 0xffffffff);
     });
   });
 

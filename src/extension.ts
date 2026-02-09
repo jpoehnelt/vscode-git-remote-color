@@ -6,10 +6,10 @@
  */
 
 import * as vscode from 'vscode';
+import { applyColors, resetColors } from './apply';
 import { hashString, hashToHex, normalizeRemoteUrl } from './color';
 import { getGitRemoteUrl } from './git';
-import { applyColors, resetColors } from './apply';
-import { createStatusBarItem, updateStatusBarItem, disposeStatusBarItem } from './statusbar';
+import { createStatusBarItem, disposeStatusBarItem, updateStatusBarItem } from './statusbar';
 
 let currentColor: string | null = null;
 let currentRemoteUrl: string | null = null;
@@ -76,9 +76,9 @@ export function activate(context: vscode.ExtensionContext): void {
       vscode.window.showInformationMessage(
         currentColor
           ? `Git Remote Color: Applied ${currentColor}`
-          : 'Git Remote Color: No git remote found'
+          : 'Git Remote Color: No git remote found',
       );
-    })
+    }),
   );
 
   context.subscriptions.push(
@@ -88,29 +88,25 @@ export function activate(context: vscode.ExtensionContext): void {
       currentRemoteUrl = null;
       updateStatusBarItem(null, null);
       vscode.window.showInformationMessage('Git Remote Color: Workspace colors reset');
-    })
+    }),
   );
 
   context.subscriptions.push(
     vscode.commands.registerCommand('gitRemoteColor.showColor', () => {
       if (currentColor) {
         const remoteInfo = currentRemoteUrl ? `\nRemote: ${currentRemoteUrl}` : '';
-        vscode.window.showInformationMessage(
-          `Git Remote Color: ${currentColor}${remoteInfo}`
-        );
+        vscode.window.showInformationMessage(`Git Remote Color: ${currentColor}${remoteInfo}`);
       } else {
-        vscode.window.showInformationMessage(
-          'Git Remote Color: No color currently applied'
-        );
+        vscode.window.showInformationMessage('Git Remote Color: No color currently applied');
       }
-    })
+    }),
   );
 
   // Re-apply when workspace folders change
   context.subscriptions.push(
     vscode.workspace.onDidChangeWorkspaceFolders(() => {
       refreshColor();
-    })
+    }),
   );
 
   // Re-apply when configuration changes
@@ -119,7 +115,7 @@ export function activate(context: vscode.ExtensionContext): void {
       if (e.affectsConfiguration('gitRemoteColor')) {
         refreshColor();
       }
-    })
+    }),
   );
 
   // Apply on activation

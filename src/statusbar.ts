@@ -10,10 +10,7 @@ export function createStatusBarItem(): vscode.StatusBarItem {
   if (statusBarItem) {
     return statusBarItem;
   }
-  statusBarItem = vscode.window.createStatusBarItem(
-    vscode.StatusBarAlignment.Right,
-    100
-  );
+  statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
   statusBarItem.command = 'gitRemoteColor.showColor';
   statusBarItem.tooltip = 'Git Remote Color — click to show details';
   return statusBarItem;

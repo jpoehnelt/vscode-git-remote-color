@@ -3,7 +3,7 @@
  */
 
 import * as vscode from 'vscode';
-import { getContrastForeground, adjustColor } from './color';
+import { adjustColor, getContrastForeground } from './color';
 
 export interface ElementAdjustments {
   titleBar: 'none' | 'lighten' | 'darken';
@@ -15,9 +15,12 @@ const ADJUSTMENT_AMOUNT = 15; // percent
 
 function applyAdjustment(hex: string, adjustment: 'none' | 'lighten' | 'darken'): string {
   switch (adjustment) {
-    case 'lighten': return adjustColor(hex, ADJUSTMENT_AMOUNT);
-    case 'darken': return adjustColor(hex, -ADJUSTMENT_AMOUNT);
-    default: return hex;
+    case 'lighten':
+      return adjustColor(hex, ADJUSTMENT_AMOUNT);
+    case 'darken':
+      return adjustColor(hex, -ADJUSTMENT_AMOUNT);
+    default:
+      return hex;
   }
 }
 
@@ -84,11 +87,7 @@ export async function applyColors(baseColor: string): Promise<void> {
   // Sash hover border uses the base color for a subtle accent
   colors['sash.hoverBorder'] = baseColor;
 
-  await wsConfig.update(
-    'colorCustomizations',
-    colors,
-    vscode.ConfigurationTarget.Workspace
-  );
+  await wsConfig.update('colorCustomizations', colors, vscode.ConfigurationTarget.Workspace);
 }
 
 /**
@@ -105,9 +104,5 @@ export async function resetColors(): Promise<void> {
 
   // If nothing remains, remove the key entirely
   const value = Object.keys(colors).length > 0 ? colors : undefined;
-  await wsConfig.update(
-    'colorCustomizations',
-    value,
-    vscode.ConfigurationTarget.Workspace
-  );
+  await wsConfig.update('colorCustomizations', value, vscode.ConfigurationTarget.Workspace);
 }

@@ -1,18 +1,24 @@
 name: CI
-on: [pull_request, push]
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "lts/*"
-          cache: "npm"
-      - run: npm ci
-      - run: npm run compile
-      - run: npm run test:unit
-      - run: npx @vscode/vsce package --allow-missing-repository
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - run: npm ci
+    - run: npm run compile
+    - run: npm run lint
+    - run: npm test
+      if: runner.os == 'Linux' # Run integration tests only on Linux for speed, or enable on all

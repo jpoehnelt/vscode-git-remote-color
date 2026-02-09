@@ -46,4 +46,4 @@ The same remote always produces the same color, so your workspace looks consiste
 
 ## License
 
-MIT
+Apache License 2.0

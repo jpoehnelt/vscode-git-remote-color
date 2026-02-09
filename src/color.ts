@@ -38,13 +38,34 @@ export function hslToHex(h: number, s: number, l: number): string {
   const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
   const m = l - c / 2;
 
-  let r = 0, g = 0, b = 0;
-  if (h < 60)       { r = c; g = x; b = 0; }
-  else if (h < 120) { r = x; g = c; b = 0; }
-  else if (h < 180) { r = 0; g = c; b = x; }
-  else if (h < 240) { r = 0; g = x; b = c; }
-  else if (h < 300) { r = x; g = 0; b = c; }
-  else              { r = c; g = 0; b = x; }
+  let r = 0,
+    g = 0,
+    b = 0;
+  if (h < 60) {
+    r = c;
+    g = x;
+    b = 0;
+  } else if (h < 120) {
+    r = x;
+    g = c;
+    b = 0;
+  } else if (h < 180) {
+    r = 0;
+    g = c;
+    b = x;
+  } else if (h < 240) {
+    r = 0;
+    g = x;
+    b = c;
+  } else if (h < 300) {
+    r = x;
+    g = 0;
+    b = c;
+  } else {
+    r = c;
+    g = 0;
+    b = x;
+  }
 
   const toHex = (n: number) => {
     const hex = Math.round((n + m) * 255).toString(16);
@@ -71,9 +92,9 @@ export function hexToRgb(hex: string): { r: number; g: number; b: number } {
  */
 export function relativeLuminance(hex: string): number {
   const { r, g, b } = hexToRgb(hex);
-  const [rs, gs, bs] = [r, g, b].map(c => {
+  const [rs, gs, bs] = [r, g, b].map((c) => {
     const s = c / 255;
-    return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
   });
   return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
 }
@@ -84,7 +105,7 @@ export function relativeLuminance(hex: string): number {
 export function getContrastForeground(
   backgroundHex: string,
   lightFg: string = '#e7e7e7',
-  darkFg: string = '#15202b'
+  darkFg: string = '#15202b',
 ): string {
   const lum = relativeLuminance(backgroundHex);
   // Use light foreground on dark backgrounds (luminance < 0.179)
