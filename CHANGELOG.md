@@ -1,5 +1,11 @@
 # vscode-git-remote-color
 
+## 0.1.3
+
+### Patch Changes
+
+- Fix publishing to Open VSX Registry
+
 ## 0.1.2
 
 ### Patch Changes
