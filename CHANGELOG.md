@@ -1,5 +1,11 @@
 # vscode-git-remote-color
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated extension icon
+
 ## 0.1.4
 
 ### Patch Changes
