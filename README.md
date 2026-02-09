@@ -36,16 +36,22 @@ The same remote always produces the same color, so your workspace looks consiste
 
 ## Settings
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `gitRemoteColor.affectTitleBar` | `true` | Color the title bar |
-| `gitRemoteColor.affectActivityBar` | `true` | Color the activity bar |
-| `gitRemoteColor.affectStatusBar` | `true` | Color the status bar |
-| `gitRemoteColor.saturation` | `50` | Saturation percentage (10–100) |
-| `gitRemoteColor.lightness` | `40` | Lightness percentage (15–60) |
-| `gitRemoteColor.colorOverride` | `""` | Manual hex override (e.g. `#ff6347`) |
-| `gitRemoteColor.remoteName` | `"origin"` | Git remote name to hash |
-| `gitRemoteColor.elementAdjustments` | `{ titleBar: "none", activityBar: "lighten", statusBar: "none" }` | Per-element lighten/darken |
+| Setting | Default |
+|---------|---------|
+| `gitRemoteColor.affectTitleBar` | `true` |
+| `gitRemoteColor.affectActivityBar` | `true` |
+| `gitRemoteColor.affectStatusBar` | `true` |
+| `gitRemoteColor.saturation` | `50` |
+| `gitRemoteColor.lightness` | `40` |
+| `gitRemoteColor.colorOverride` | `""` |
+| `gitRemoteColor.remoteName` | `"origin"` |
+| `gitRemoteColor.elementAdjustments` | *(see below)* |
+
+Default `elementAdjustments`:
+
+```json
+{ "titleBar": "none", "activityBar": "lighten", "statusBar": "none" }
+```
 
 ## License
 
