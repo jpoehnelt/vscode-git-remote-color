@@ -6,6 +6,7 @@
 import * as assert from 'node:assert';
 import {
   adjustColor,
+  contrastRatio,
   getContrastForeground,
   hashString,
   hashToHex,
@@ -87,15 +88,40 @@ suite('Color Utilities', () => {
     });
   });
 
+  suite('contrastRatio', () => {
+    test('black vs white is 21:1', () => {
+      const ratio = contrastRatio('#000000', '#ffffff');
+      assert.ok(Math.abs(ratio - 21) < 0.1);
+    });
+
+    test('same color is 1:1', () => {
+      const ratio = contrastRatio('#336699', '#336699');
+      assert.ok(Math.abs(ratio - 1) < 0.01);
+    });
+
+    test('is symmetric', () => {
+      const a = contrastRatio('#336699', '#ffffff');
+      const b = contrastRatio('#ffffff', '#336699');
+      assert.ok(Math.abs(a - b) < 0.01);
+    });
+  });
+
   suite('getContrastForeground', () => {
     test('returns light foreground for dark backgrounds', () => {
       const fg = getContrastForeground('#000000');
-      assert.strictEqual(fg, '#e7e7e7');
+      assert.strictEqual(fg, '#ffffff');
     });
 
     test('returns dark foreground for light backgrounds', () => {
       const fg = getContrastForeground('#ffffff');
       assert.strictEqual(fg, '#15202b');
+    });
+
+    test('picks the higher contrast option for mid-range colors', () => {
+      // A mid-range brown/tan — should still pick a readable foreground
+      const fg = getContrastForeground('#997755');
+      const ratio = contrastRatio('#997755', fg);
+      assert.ok(ratio >= 3, `Expected ratio >= 3, got ${ratio.toFixed(2)}`);
     });
   });
 

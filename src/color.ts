@@ -100,16 +100,29 @@ export function relativeLuminance(hex: string): number {
 }
 
 /**
- * Return a light or dark foreground color based on background contrast.
+ * Calculate WCAG contrast ratio between two colors.
+ * Returns a value between 1 and 21.
+ */
+export function contrastRatio(hex1: string, hex2: string): number {
+  const l1 = relativeLuminance(hex1);
+  const l2 = relativeLuminance(hex2);
+  const lighter = Math.max(l1, l2);
+  const darker = Math.min(l1, l2);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+/**
+ * Return a light or dark foreground color based on which provides
+ * the best WCAG contrast ratio against the background.
  */
 export function getContrastForeground(
   backgroundHex: string,
-  lightFg: string = '#e7e7e7',
+  lightFg: string = '#ffffff',
   darkFg: string = '#15202b',
 ): string {
-  const lum = relativeLuminance(backgroundHex);
-  // Use light foreground on dark backgrounds (luminance < 0.179)
-  return lum < 0.179 ? lightFg : darkFg;
+  const lightRatio = contrastRatio(backgroundHex, lightFg);
+  const darkRatio = contrastRatio(backgroundHex, darkFg);
+  return lightRatio >= darkRatio ? lightFg : darkFg;
 }
 
 /**
