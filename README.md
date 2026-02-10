@@ -1,6 +1,5 @@
 # Git Remote Color
 
-[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/jpoehnelt.vscode-git-remote-color?logo=visual-studio-code&label=Marketplace)](https://marketplace.visualstudio.com/items?itemName=jpoehnelt.vscode-git-remote-color)
 [![Open VSX Version](https://img.shields.io/open-vsx/v/jpoehnelt/vscode-git-remote-color?logo=eclipse-ide&label=Open%20VSX)](https://open-vsx.org/extension/jpoehnelt/vscode-git-remote-color)
 
 **Automatically colors your VS Code workspace based on the git remote URL.** Every repository gets its own unique, consistent color — no manual setup required.
