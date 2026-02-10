@@ -1,5 +1,11 @@
 # vscode-git-remote-color
 
+## 0.3.0
+
+### Minor Changes
+
+- d01056a: Refactor to only color the status bar, removing title bar and activity bar support.
+
 ## 0.2.0
 
 ### Minor Changes
